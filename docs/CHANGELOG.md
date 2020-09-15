@@ -6,14 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 20200915 1710 UTC - Development
+ - fix admin dashboard css
+ - add site favicon to admin dashboard header
+ - add admin dashboard sentry functionality
+ - add site visit count update method, usable in theme front_page or header
+ - add site visit count to admin dashboard
+
 ## [1.5.1] - 20200914 1700 UTC - Development
  - add route class
+ - add admin route class
  - add admin dashboard functionality
  - add maintenance check to index
  - add functions to handle back-end methods
  - opted to use post/slug vs post/day/month/year/slug for posts and SEO
  - revamped core theme
- - add remote news to admin dashboard via CuRL 
+ - add remote news to admin dashboard via CuRL and JSON
+ - add debug detection to index
+ - add check install to index
+ - add admin dashboard post functionality
 
 ## [1.5.1] - 20200830 2004 UTC - Development
  - add parse_url to privacy-policy
