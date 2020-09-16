@@ -24,6 +24,18 @@ function do_header()
     echo '<link rel="dns-prefetch" href="'.$settings->site_url.'">';
 	echo '<link rel="stylesheet" href="mc-content/themes/'.$settings->site_theme.'/css/style.css">';
 	echo '<link rel="stylesheet" href="mc-includes/css/core.css">';
+	echo '<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.php" />';
+}
+
+function do_router()
+{
+	include 'router.php';
+	$router = new router();
+}
+
+function run_router()
+{
+	$router->run();
 }
 
 function mc_debug($string)
