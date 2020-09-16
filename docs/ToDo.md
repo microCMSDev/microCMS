@@ -5,6 +5,9 @@
   - Users
   - Themes
   - Pages
+  - Analytics
+  - Groups
+  - Categories
   - Licensing (For Any version other than Community)
   - Read Token Data from theme css file
   - Read Token Data from plugin base file
