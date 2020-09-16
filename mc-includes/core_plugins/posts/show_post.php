@@ -56,8 +56,9 @@ else
     <script type="text/javascript">
       function postLike() {
          $.ajax({
-			 type: 'post',
-            url: "like_post(<?php echo $post_id;?>)", //the page containing php script
+			type: 'post',
+            url: 'mc-includes/ajax.php?like_id=<?php echo $post_id;?>', //the page containing php script
+			//data: like_id,
             success: function(html) {
                $('#response').html("Thanks for that like ;)");
             }
