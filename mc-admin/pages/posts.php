@@ -59,10 +59,6 @@ echo '<div class="col">';
 	  }
 	  ?>
 	  </table>
-	  <p><strong>To Do:</strong>
-	  <br>
-	  - Edit
-	  </p>
 	<?php
 	 }
 	 
@@ -196,9 +192,114 @@ echo '<div class="col">';
 	 }
 	 function edit()
 	 {
-		echo '<h2>Posts</h2>';
-	    echo '<p>Post Management</p>';
-		echo '<p>Edit</p>';
+	    if(isset($_POST['submit']))
+	    {
+	       $p_id = $_POST['post_id'];
+	       $p_title = mc_prepData($_POST['post_title']);
+	       $p_intro = mc_prepData($_POST['post_exerpt']);
+	       $p_content = mc_prepData($_POST['post_content']);
+	       $c_allow = mc_prepData($_POST['allow']);
+	       $p_slug = mc_slugify($_POST['post_title']);
+	       $query = "UPDATE mc_posts SET post_title='$p_title', post_exerpt='$p_intro', post_contents='$p_content', allow_comments='$c_allow', post_slug='$p_slug' WHERE id = $p_id";
+	       $result = mc_query($query);
+	       if($result)
+	       {
+	          redirect("/mc-admin/posts");
+	       }
+	       else
+	       {
+	          echo 'Error';
+	       }
+	    }
+	    else
+	    {
+	       echo '<h2>Posts</h2>';
+	       echo '<p>Post Management</p>';
+	       $id = $_GET['post_id'];
+	     $query = "SELECT * FROM mc_posts WHERE id = $id";
+	    $result = mc_query($query);
+	    $data = mc_fetchAssoc($result);
+	    $post_title = $data['post_title'];
+	    $post_intro = $data['post_exerpt'];
+	    $post_content = $data['post_contents'];
+	       echo '
+		 <div class="col">
+	  <form action="/mc-admin/posts?page=edit" method="post">
+	  <div id="response"></div>
+		  <div class="row">
+			<div class="col">
+			  <h4>Your Title</h4>
+			  <p>The title of your Post</p>
+			  <input type="text" id="post_title" name="post_title" value="'.$post_title.'">
+			</div>
+		  </div>
+		  <hr>
+		  <div class="row">
+			<div class="col">
+			  <h4>Your Introduction</h4>
+			  <p>Your Introduction to your Post</p>
+			  <textarea id="exerpt" name="post_exerpt" rows="5" cols="70">'.$post_intro.'</textarea>
+			</div>
+		  </div>
+		  <hr>
+		  <div class="row">
+			<div class="col">
+			  <h4>Your Blog Content</h4>
+			  <p>The Main Content of your Post</p>
+			  <textarea id="content" name="post_content" rows="20" cols="70">'.$post_content.'</textarea>
+			</div>
+		  </div>
+		  <hr>
+		  <div class="row">
+			<div class="col">
+			  <strong>Allow Comments</strong>
+			  <p>Allow comments on this Post?</p>
+			  ';
+			  if($allow_comments == 1)
+			  {
+			     echo '<input type="radio" id="allow" name="allow" value="0"> No  <input type="radio" id="allow" name="allow" value="1" checked> Yes';
+			  }
+			  else
+			  {
+			     echo '<input type="radio" id="allow" name="allow" value="0" checked> No  <input type="radio" id="allow" name="allow" value="1"> Yes';
+			  } 
+			  echo '
+			  <input type="hidden" name="post_id" id="post_id" value="'.$id.'">
+			</div>
+		  </div>
+		  <hr>
+		  <div class="row">
+			<div class="col">
+			  <h4>Post It</h4>
+			  <p>Please proof read your work, less work make less haste.</p>
+			  <input type="submit" name="submit" id="submit" value="Update Post">
+			  <p></p>
+			</div>
+		  </div>
+		  </form>
+		  <hr>
+		  <div class="row">
+			<div class="col">
+			  <h4>HTML Reference</h4>
+			  <p>
+			  <xmp>
+			  <p>Your Text</p> - Paragraph
+			  <strong>Your text here</strong> - Bold Font
+			  <h1>Your Title</h1> - Title Font, <h2> <h3> can be used as well.
+			  <tt>Title text</tt> - Title Text
+			  <article>Your Article Contents</article> - When used with CSS, it formats your blog or post to look good.
+			  <img src=""></img> - Include a remote or local hosted image.
+			  <section></section> - The <section> tag defines a section in a document.
+			  <main></main> - Specify the main content of the document
+			  </xmp>
+			  A Complete <strong>HTML</strong> reference is available at <a href="https://www.w3schools.com/tags/default.asp" target="_blank">W3Schools.com</a>
+			  </p>
+			</div>
+		  </div>
+		  
+		</div>
+		';
+	    }
 	 }
 	 
 	 /*
