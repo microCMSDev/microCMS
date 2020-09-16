@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - add admin dashboard sentry functionality
  - add site visit count update method, usable in theme front_page or header
  - add site visit count to admin dashboard
+ - add JS feature for like_post on show_post, like button is now working
 
 ## [1.5.1] - 20200914 1700 UTC - Development
  - add route class
