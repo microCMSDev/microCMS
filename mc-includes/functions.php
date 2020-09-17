@@ -65,6 +65,8 @@ function mc_getUser($username)
 	}
 	else
 	{
+		session_start();
+		$_SESSION['timestamp'] = time();
 		$_SESSION['user_id'] = $user['id'];
 		$_SESSION['admin'] = $user['user_status'];
 		$_SESSION['disply_name'] = $user['display_name'];
@@ -81,6 +83,29 @@ function mc_getUser($username)
 			redirect("/");
 		}
 	}
+}
+
+/*
+ * logged_time()
+ * On Login, timestamp session is created
+ * if after idletime, logout and redirect
+ * default is 30 minutes
+ * @timestamp
+ * @idletime
+*/
+function logged_time()
+{
+   $idletime = 60;
+   if (time()-$_SESSION['timestamp']>$idletime)
+   {
+	   //$_SESSION = array();
+	   //setcookie(session_name(), false, time()-3600);
+	   session_destroy(); 
+   }
+   else
+   {
+	   $_SESSION['timestamp'] = time();
+   }
 }
 
 function mc_slugify($string)

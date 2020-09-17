@@ -9,9 +9,11 @@ function check_install()
    }
 }
 check_install();
+ob_start();
+session_start();
 include 'mc-core/loader.php';
 include 'mc-includes/functions.php';
-session_start();
+
 
 $maintenance = check_maintenance();
 if($maintenance == 1)
@@ -25,6 +27,7 @@ else
 		include 'mc-content/themes/'.$site_theme.'/functions.php';
 	}
 	date_default_timezone_set($timezone);
+	ob_start();
 	include 'mc-content/themes/'.$site_theme.'/header.php';
 
     // Are we in debug mode?
@@ -32,6 +35,10 @@ else
        mc_debug(true);
 	   echo '<!-- DEBUG is Active -->';
 	}
+	
+	// Check Logged time
+	logged_time();
+	
 	// Custom 404 Handler
 	$router->set404(function () {
 	   header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
@@ -74,10 +81,28 @@ else
 	$router->match('GET|POST', '/posts(/[a-z0-9_-]+)', function ($slug) {
 	   require 'mc-includes/core_plugins/posts/show_post.php';
 	});
+    
+	// Static route: / (plugins repository)
+	$router->get('/plugins', function () {
+	   require 'mc-content/plugins/repository/public/repository-public-plugins.php';
+	});
+
+	// Static route: / (themes repository)
+	// Not needed yet
+	/*
+	$router->get('/themes', function () {
+	   require 'mc-content/plugins/repository/public/repository-public-themes.php';
+	});
+	*/
 
 	// Static route: / (privacy policy)
 	$router->get('/privacy-policy', function () {
 	   require 'mc-includes/core_plugins/privacy-policy/privacy-policy.php';
+	});
+	
+	// Static route: / (RSS Feed)
+	$router->get('/feed', function () {
+	   require 'rss.php';
 	});
 
 	// Plugins
@@ -97,4 +122,5 @@ else
 	// Run the router
 	$router->run();
 	include 'mc-content/themes/'.$site_theme.'/footer.php';
+	ob_end_flush();
 }
