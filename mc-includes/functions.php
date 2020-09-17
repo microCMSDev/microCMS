@@ -95,7 +95,7 @@ function mc_getUser($username)
 */
 function logged_time()
 {
-   $idletime = 60;
+   $idletime = 1800;
    if (time()-$_SESSION['timestamp']>$idletime)
    {
 	   //$_SESSION = array();
