@@ -14,6 +14,9 @@ elseif (isset($_POST['page']))
  }
  function sentry_admin()
  {
+	 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 ?>
   <h2>Sentry</h2>
   <p><small><strong>Sentry</strong> -> <a href="/mc-admin/sentry?page=add">Add an IP</a> -> 
@@ -30,8 +33,10 @@ elseif (isset($_POST['page']))
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">On This Site</h5>
-        <p class="card-text">Show how many are banned and possibly the most popular country</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text">This site currently has <?php echo mc_countBadguys()?> Banned IP Addesses
+		<br>Most popular country: <?php echo popular_badGuys()?>
+		</p>
+        <a href="/mc-admin/sentry?page=banned" class="btn btn-dark">What's Banned</a>
       </div>
     </div>
   </div>
@@ -40,7 +45,7 @@ elseif (isset($_POST['page']))
       <div class="card-body">
         <h5 class="card-title">Version and News</h5>
         <p class="card-text">Once the News API is complete, a channel will be created for PHP Sentry</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-dark">Doesn't Work</a>
       </div>
     </div>
   </div>

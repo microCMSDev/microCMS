@@ -16,8 +16,19 @@ Ongoing and Evolving
 ### INTENT
 Small footprint, easy to install, fast load, class based, pluggable and themeable.
 
-### Issues
+### ISSUES
 Please see <a href="docs/bug_report.md">this</a> then use the <a href="https://github.com/DevWorksOSI/microCMS/issues">Issue Tracker</a> for any issues that warrent attention
+
+### INSTALLING
+1. Upload the entire contents to you web root
+2. Configure your database to use with the microCMS
+3. Point your browser to yourdomain.com/mc-install.php
+5. Follow the instructions to install your site
+6. It is recommended to delete mc-install.php when you are finished installing
+7. Navigate to /mc-admin
+8. Go to Settings, most of what you input during installation will be there, simply edit to your needs.
+9. Since the microCMS only comes with one theme, we recommend creating you own to suit your needs (Theme Activation will be available soon)
+10. Your all set, enjoy!
 
 ### Contributing
 Please see <a href="docs/CODE OF CONDUCT.md">this</a>

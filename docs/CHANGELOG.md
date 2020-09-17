@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.5.1] - 20200917 2010 UTC - Development
+ - add font awsome icons to admin main
+ - add 30 minute auto logout
+ - add RSS
+ - add Admin Settings Methods
+ - add total banned IP to Admin->Sentry
+ - add most popular banned IP country to Admin->Sentry
 
 ## [1.5.1] - 20200915 1710 UTC - Development
  - fix admin dashboard css

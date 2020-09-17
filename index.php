@@ -27,7 +27,6 @@ else
 		include 'mc-content/themes/'.$site_theme.'/functions.php';
 	}
 	date_default_timezone_set($timezone);
-	ob_start();
 	include 'mc-content/themes/'.$site_theme.'/header.php';
 
     // Are we in debug mode?
@@ -44,13 +43,6 @@ else
 	   header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 	   require 'mc-includes/core_plugins/errors/404.php';
 	});
-
-	// Before Router Middleware
-	/*
-	$router->before('GET', '/.*', function () {
-	   header('X-Powered-By: microCMS');
-	});
-	*/
 
 	// Static route: / (homepage)
 	$router->get('/', function () {
@@ -81,19 +73,6 @@ else
 	$router->match('GET|POST', '/posts(/[a-z0-9_-]+)', function ($slug) {
 	   require 'mc-includes/core_plugins/posts/show_post.php';
 	});
-    
-	// Static route: / (plugins repository)
-	$router->get('/plugins', function () {
-	   require 'mc-content/plugins/repository/public/repository-public-plugins.php';
-	});
-
-	// Static route: / (themes repository)
-	// Not needed yet
-	/*
-	$router->get('/themes', function () {
-	   require 'mc-content/plugins/repository/public/repository-public-themes.php';
-	});
-	*/
 
 	// Static route: / (privacy policy)
 	$router->get('/privacy-policy', function () {

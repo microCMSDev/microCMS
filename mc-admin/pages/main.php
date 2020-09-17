@@ -9,11 +9,12 @@
            <strong>At a Glance</strong>
          </div>
          <div class="card-body">
-           <p class="card-text"><a href="/mc-admin/posts"><strong><?php echo mc_countPosts()?></strong></a> Post
+           <p class="card-text">
+		   <i class="fa fa-tag" aria-hidden="true"></i> <a href="/mc-admin/posts"><strong><?php echo mc_countPosts()?></strong></a> Post
            <br>
            <!--Site Status (Pending)<br>-->
-		   <strong><?php echo mc_countVisits()?></strong> Site Visits<br>
-           <a href="/mc-admin/users"><strong><?php echo mc_countUsers()?></strong></a> Users<br>
+		   <i class="fa fa-map-pin" aria-hidden="true"></i>  <strong><?php echo mc_countVisits()?></strong> Site Visits<br>
+           <i class="fa fa-user" aria-hidden="true"></i> <a href="/mc-admin/users"><strong><?php echo mc_countUsers()?></strong></a> Users<br>
            <small>microCMS <i><?php echo mc_version()?></i> Running the <i><?php echo mc_currentTheme()?></i> theme.</small>
           </p>
          </div>
@@ -35,7 +36,7 @@
            {
              $post_title = $rows['post_title'];
              $post_date = date("M d, Y g:i A",strtotime($rows['post_date']));
-             echo '<small>'.$post_date.'  <a href="/mc-admin/posts">'.$post_title.'</a></small><br>';
+             echo '<small><i class="fa fa-tag" aria-hidden="true"></i> '.$post_date.'  <a href="/mc-admin/posts">'.$post_title.'</a></small><br>';
            }
            ?>
            </p>
@@ -61,7 +62,7 @@
         </div>
         <div class="card-body">
           <p class="card-text">
-          <a href="/mc-admin/sentry?page=banned"><strong><?php echo mc_countBadguys()?></strong></a> Bad IP's<hr>
+          <i class="fa fa-bullseye" aria-hidden="true"></i> <a href="/mc-admin/sentry?page=banned"><strong><?php echo mc_countBadguys()?></strong></a> Bad IP's<hr>
           <small><a href="/mc-admin/sentry">PHP Sentry</a> Version <?php echo mc_getSentryVersion()?></small>
           </p>
         </div>
@@ -90,7 +91,7 @@
 		  curl_close ($ch);
 		  $data = json_decode($result, true);
 		  foreach ($data as $news) {
-			  echo '<small><a href="'.$news['url'].'" target="_blank">'.$news['title'].'</a><br/>'.$news['intro'].'</small>';
+			  echo '<small><i class="fa fa-info" aria-hidden="true"></i>  <a href="'.$news['url'].'" target="_blank">'.$news['title'].'</a><br/>'.$news['intro'].'</small>';
 			  echo '<hr>';
 		  }
 		  ?>

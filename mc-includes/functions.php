@@ -245,15 +245,6 @@ function mc_getLastPost()
    return $result;
 }
 
-function like_post($id)
-{
-	if(isset($_POST))
-	{
-	   $mcdb = new database\db;
-	   $query = "UPDATE mc_posts SET post_likes = post_likes +1 WHERE id = $id";
-       $result = mc_query($query);
-	}
-}
 
 // Functions for the admin Dashboard
 function mc_countUsers()
@@ -316,6 +307,53 @@ function mc_countBadguys()
    $data = $mcdb->fetch_assoc($result);
    $count = $data['total'];
    return $count;
+}
+/*
+ * Bad Actor IP Popularity
+ * used in Admin->Sentry
+ * Get a total Count from mc_bannedips
+ * Seperate the count by country
+ * evaluate the countries
+ * display the most popular country
+*/
+function popular_badGuys()
+{
+   $mcdb = new database\db;
+   $query = "SELECT country FROM mc_bannedip";
+   $result = $mcdb->query($query);
+   $rst = $mcdb->rows($result);
+   if($rst == 0)
+   {
+	   $response = '<strong>None</strong>';
+   }
+   else
+   {
+   
+	   // Loop through each record
+	   while($data = $mcdb->fetch_array($result))
+	   {
+		   // Assign just the data that we need
+		   $country = $data['country'];
+	   }
+	   $popular = max(array($country));
+	   if($popular == 'CN')
+	   {
+		   $response = '<img src="/mc-admin/img/country/CN.svg" height="30" width="30"> <strong>China</strong>';
+	   }
+	   if($popular == 'RU')
+	   {
+		   $response = '<img src="/mc-admin/img/country/RU.svg" height="30" width="30"> <strong>Russia</strong>';
+	   }
+	   if($popular == 'US')
+	   {
+		   $response = '<img src="/mc-admin/img/country/US.svg" height="30" width="30"> <strong>The United States</strong>';
+	   }
+	   if($popular == 'IR')
+	   {
+		   $response = '<img src="/mc-admin/img/country/IR.svg" height="30" width="30"> <strong>Iraq</strong>';
+	   }
+   }
+   return $response;
 }
 
 function mc_getSentryVersion()
