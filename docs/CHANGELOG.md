@@ -3,8 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [Beta Release]
+ - Release 1.5.1 Beta for testing
 
-## [Unreleased]
+## [Unreleased] - [1.5.1] - 20200918 0130 UTC - Development
+ - fix front-end ajax, method and JS data
+ - add admin->users methods (CRUD)
+ - add admin->site theme management
+ - add plugins CRUD functionality
+ - add admin->update method
+ - add admin->sentry update check
+
+ 
 ## [1.5.1] - 20200917 2010 UTC - Development
  - add font awsome icons to admin main
  - add 30 minute auto logout

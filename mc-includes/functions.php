@@ -383,3 +383,68 @@ function mc_adminSwitch()
 	$result = $mcdb->query($query);
 	return $result;
 }
+
+function get_themes()
+{
+	$dir = "../mc-content/themes";
+	$handle = opendir($dir);
+	while($name = readdir($handle))
+	{
+	   if(is_dir("$dir/$name"))
+	   {
+	      if($name != '.' && $name != '..')
+		  {
+			  $mcdb = new database\db;
+			  $query = "SELECT site_theme FROM mc_settings";
+			  $result = $mcdb->query($query);
+			  $theme = $mcdb->fetch_assoc($result);
+			  $current_theme = $theme['site_theme'];
+			  if($name == $current_theme)
+			  {
+				  $status = 'Active';
+				  $button = '<button type="button" class="btn btn-dark" disabled>Currently Active</button>';
+			  }
+			  else
+			  {
+				  $status = 'Not active';
+				  $button = '<a href="/mc-admin/themes?page=activate&theme='.$name.'" class="btn btn-dark">Activate</a>';
+			  }
+			  
+		     //echo '<option value="'.$name.'">'.$name.'</option>';
+			 if(file_exists("$dir/$name/img/screenshot.png"))
+			 {
+				 echo '
+				  <div class="col-sm-4">
+					<div class="card">
+						<div class="card-body">
+						  <h5 class="card-title">'.$name.'</h5>
+							<img src="/mc-content/themes/'.$name.'/img/screenshot.png" height="300" width="300">
+							  <p class="card-text"><strong>Status:</strong> <i>'.$status.'</i></p>
+							  <p>'.$button.'</p>
+						</div>
+					</div>
+				</div>
+				';
+			 }
+			 else
+			 {
+				 echo '
+				  <div class="col-sm-4">
+					<div class="card">
+						<div class="card-body">
+						  <h5 class="card-title">'.$name.'</h5>
+							<img src="/mc-admin/img/assets/microcms.png" height="300" width="300">
+							<p class="card-text"><strong>Status:</strong> <i>'.$status.'</i><br><i>This themes base image does not exist</i></p>
+							  <p>'.$button.'</p>
+						</div>
+					</div>
+				</div>
+				';
+			 }
+			
+		  }
+	   }
+
+	}
+	closedir($handle);
+}

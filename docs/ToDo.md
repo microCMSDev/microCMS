@@ -1,9 +1,10 @@
 1. Create Management area and Controller Classes
   - ~~Blogs~~
-  - Plugins
+  - ~~Plugins~~
   - Updating
-  - Users
-  - Themes
+  - ~~Themes~~
+  - ~~Users~~
+  - ~~Settings~~
   - Pages
   - Analytics
   - Groups
@@ -16,6 +17,6 @@
 
 3. ~~Automatic slugify on Publish (Pages, Blogs, Plugins)(Symlinks to data, not htaccess)~~
 
-~~4. Create user Login and Signup - Complete~~
+4. ~~Create user Login and Signup~~
 
-~~5. Create Lost Password~~
+5. ~~Create Lost Password~~

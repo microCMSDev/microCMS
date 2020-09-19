@@ -55,12 +55,18 @@ else
   </div>
     <script type="text/javascript">
       function postLike() {
+		  var like_id = '<?php echo $post_id;?>';
          $.ajax({
 			type: 'post',
-            url: 'mc-includes/ajax.php?like_id=<?php echo $post_id;?>', //the page containing php script
-			//data: like_id,
-            success: function(html) {
-               $('#response').html("Thanks for that like ;)");
+            url: 'mc-includes/ajax.php?task=like_post', //the page containing php script
+			data: '&like_id='+like_id,
+			error: function(data) {
+				$('#add_response').css("color" , "red");
+                $('#add_response').html("<strong>Error</strong>");
+             },
+            success: function(data) {
+				$('#response').css("color" , "green");
+                $('#response').html("Thanks for that like ;)");
             }
          });
        }
@@ -87,7 +93,7 @@ twitterShare.onclick = function(e) {
 “@type”: “BlogPosting”,
 “mainEntityOfPage”:{
 “@type”:”WebPage”,
-“@id”:”<?php echo $_SERVER['REQUEST_SCHEME'];?>://<?php echo $_SERVER['SERVER_NAME'];?>/posts/<?php echo $schema_slug;?>”
+“@id”:”<?php echo $_SERVER['REQUEST_SCHEME'];?>'://'<?php echo $_SERVER['SERVER_NAME'];?>/posts/<?php echo $schema_slug;?>”
 },
 “headline”: “<?php echo $post_title;?>”,
 “datePublished”: “<?php echo $schema_date;?>”,

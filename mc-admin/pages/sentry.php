@@ -99,6 +99,24 @@ error_reporting(E_ALL);
 	 echo '<h2>Sentry</h2>';
 	 echo '<p><small><a href="/mc-admin/sentry">Sentry</a> -> <a href="/mc-admin/sentry?page=add">Add an IP</a> -> <strong>Check for Updates</strong> -> <a href="/mc-admin/sentry?page=banned">What\'s Banned</a></small></p>';
      echo '<p>Updates</p>';
+	 $this_version = mc_getSentryVersion();
+	 $url = "https://control.microcms.org/version_check.php?id=2";
+	 $ch = curl_init();
+	 curl_setopt($ch, CURLOPT_URL, $url);
+	 curl_setopt($ch, CURLOPT_HEADER, FALSE);
+	 curl_setopt($ch, CURLOPT_NOBODY, FALSE); // remove body
+	 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	 $content  = curl_exec($ch);
+	 $remote_version = trim($content);
+	 curl_close($ch);
+	 if($this_version !== $remote_version)
+	 {
+		echo '<p>Your Version '.$this_version.' is out of date, version '.$remote_version.' is available.</p>';
+	 }
+	 else
+	 {
+		echo '<p>This version - '.$this_version.' is up to date.</p>';
+	 }
  }
  
  function banned()
