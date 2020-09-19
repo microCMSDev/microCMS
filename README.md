@@ -4,7 +4,7 @@
 A Micro Content Management System that is small, easy to use, install, maintain and update, pluggable, themeable, api enabled and downright <strong>Simple</strong>.
 
 ## NOTICE
-This is in Development and <strong>NOT</strong> production ready. Contributors are welcome.
+This project is currently in Beta Status (Testing). Contributors and Issues are welcome.
 
 ### WHY
 Because the Micro-CMS is old and outdated, it's in need of a revamp, project is about 70% complete.
