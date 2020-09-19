@@ -19,6 +19,9 @@ else
       $post_author = $content['post_author'];
       $post_id = $content['id'];
       $allow_comments = $content['allow_comments'];
+	  $timestamp = date("Y-m-d H:i:s", strtotime($content['post_date']));
+	  $uts = strtotime($timestamp);
+	  $ago = ago($uts);
       
       // Schema Specific Information
       $schema_date = date("Y-m-d",strtotime($content['post_date']));
@@ -41,7 +44,7 @@ else
       <div class="col">
         <p><?php echo $post_exerpt;?></p>
         <?php echo $post_content;?>
-        <p>Posted by <?php echo $post_author;?> on <?php echo $post_date;?></p>
+        <p><?php echo $ago;?> by <strong><?php echo $post_author;?></strong> on <?php echo $post_date;?></p>
         <div class="social">
           <div id="facebook" class="facebook"><button class="social_button" data-js="facebook-share"><i class="fa fa-facebook" aria-hidden="true"></i></button></div>
           <div id="twitter" class="twitter"><button class="social_button" data-js="twitter-share"><i class="fa fa-twitter" aria-hidden="true"></i></button></div>
@@ -52,6 +55,55 @@ else
 		<hr>
       </div>
     </div>
+	
+	<?php
+	// Get the comments for this post
+	$query = "SELECT * FROM mc_metadata WHERE post_id = $post_id";
+	$result = mc_query($query);
+	while($data = mc_fetchAssoc($result))
+	{
+		$user_name = $data['user_name'];
+		$comment_date = date("l, F j, Y",strtotime($data['content_date']));
+		$comment = $data['content'];
+		$timestamp = date("Y-m-d H:i:s", strtotime($data['content_date']));
+		$uts = strtotime($timestamp);
+		$comment_ago = ago($uts);
+		echo '<div class="row">';
+		echo '<div class="col">';
+		echo '<p>'.$comment_ago.' by <strong>'.$user_name.'</strong> on <strong>'.$comment_date.'</strong><br>'.$comment.'</p>';
+		echo '<hr>';
+		echo '</div>';
+		echo '</div>';
+	}
+	echo '<div class="row">';
+    echo '<div class="col">';
+	if($allow_comments != 0)
+	{
+       if(isset($_SESSION['user_id']))
+       {
+		  $user_id = $_SESSION['user_id'];
+		  $user = $_SESSION['display_name'];
+		  echo '<div id="response"></div>';
+		  echo '<textarea id="comment" name="comment" cols="50" rows="10"></textarea>';
+		  echo '<input type="hidden" name="user" id="user" value="'.$user.'">';
+		  echo '<input type="hidden" name="user_id" id="user_id" value="'.$user_id.'">';
+		  echo '<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">';
+		  echo '<br><button class="btn btn-dark" name="submit" id="submit" onclick="send_comment()">Comment</button>';
+		  echo '<hr>';
+       }
+	   else
+	   {
+		   echo '<p><a href="'.mc_login_url().'"><button class="btn btn-dark">Login to Comment</button></a></p>';
+	   }
+	}
+	else
+	{
+		echo '<p><strong>This Post has been locked</strong>, no comments are allowed</p>';
+	}
+	echo '</div>';
+	echo '</div>';
+  ?>
+	
   </div>
     <script type="text/javascript">
       function postLike() {
@@ -70,6 +122,29 @@ else
             }
          });
        }
+	   function send_comment() {
+		  var post_id = $('#post_id').val();
+		  var user_id = $('#user_id').val();
+		  var display_name = $('#user').val();
+		  var comment = $('#comment').val();
+         $.ajax({
+			type: 'post',
+            url: 'mc-includes/ajax.php?task=post_comment', //the page containing php script
+			data: '&post_id='+post_id+'&user_id='+user_id+'&display_name='+display_name+'&comment='+comment,
+			error: function(data) {
+				$('#add_response').css("color" , "red");
+                $('#add_response').html("<strong>Error :(</strong>");
+             },
+            success: function(data) {
+				$('#response').css("color" , "green");
+                $('#response').html("Success :)");
+				$('#comment').val('');
+            }
+         });
+       }
+	   
+	   
+	   
        var facebookShare = document.querySelector('[data-js="facebook-share"]');
        facebookShare.onclick = function(e) {
   e.preventDefault();
@@ -87,6 +162,7 @@ twitterShare.onclick = function(e) {
     return false;
   }
   </script>
+	  
   <script type=”application/ld+json”>
 {
 “@context”: “http://schema.org”,

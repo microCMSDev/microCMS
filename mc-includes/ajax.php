@@ -28,6 +28,19 @@ function like_post()
 	  mysqli_close($conn);
 }
 
+function post_comment()
+{
+	include '../mc-config.php';
+	$conn = mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
+	$post_id = $_POST['post_id'];
+	$user_id = $_POST['user_id'];
+	$display_name = mysqli_real_escape_string($conn, $_POST['display_name']);
+	$comment = mysqli_real_escape_string($conn, $_POST['comment']);
+	$query = "INSERT INTO mc_metadata (post_type, content, content_date, post_id, user_id, user_name) VALUES ('1', '$comment', NOW(), '$post_id', '$user_id', '$display_name')";
+	$result = mysqli_query($conn,$query);
+	mysqli_close($conn);
+}
+
 /*
  * Switch
  * Allows function to be used
@@ -37,5 +50,8 @@ switch($p)
 {
    case 'like_post':
       like_post();
+      break;
+   case 'post_comment':
+      post_comment();
       break;
 }

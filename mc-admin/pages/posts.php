@@ -38,6 +38,7 @@ echo '<div class="col">';
 	  <td><strong>Post Title</strong></td>
 	  <td><strong>Author</strong></td>
 	  <td><strong>Post Date</strong></td>
+	  <td><strong>Comments</strong></td>
 	  <td></td>
 	  </tr>
 	  <?php
@@ -54,6 +55,7 @@ echo '<div class="col">';
 		  echo '<td><a href="/posts/'.$post_slug.'">'.$post_title.'</a></td>';
 		  echo '<td>'.$post_author.'</td>';
 		  echo '<td>'.$post_date.'</td>';
+		  echo '<td>'.mc_countComments($post_id).'</td>';
 		  echo '<td><a href="/mc-admin/posts?page=edit&post_id='.$post_id.'"><button type="button" class="btn btn-dark" id="edit">Edit</button></a> <a href="/mc-admin/posts?page=drop&post_id='.$post_id.'"><button type="button" class="btn btn-dark" id="drop">Delete</button></a></td>';
 		  echo '</tr>';
 	  }
@@ -222,6 +224,7 @@ echo '<div class="col">';
 	    $post_title = $data['post_title'];
 	    $post_intro = $data['post_exerpt'];
 	    $post_content = $data['post_contents'];
+		$allow_commments = $data['allow_comments'];
 	       echo '
 		 <div class="col">
 	  <form action="/mc-admin/posts?page=edit" method="post">

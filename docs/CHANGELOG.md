@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Post Beta] - [1.5.1] - 20200918 0400 UTC - Develpoment
+ - add commenting on post
+ - add comment count per post in admin->posts
+ - add if isset to logged_time() to correct error
+ - add mc_login_url() mc-includes->functions
+ - add mc_logout_url() mc-includes->functions
+ - add mc_register_url() mc-includes->functions
+ - fix log in button on show_post
+ 
+
 ## [Beta Release] - [1.5.1] - 20200918 0400 UTC - Beta
  - Fixed Admin Index plugin population
  - Fixed Admin Menu plugin population

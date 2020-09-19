@@ -17,7 +17,14 @@ function do_header()
     echo '<meta charset="utf-8">';
 	echo '<base href="'.$settings->site_url.'">';
 	echo '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">';
-    echo '<link rel="shortcut icon" type="image/x-icon" href="mc-content/themes/'.$settings->site_theme.'/img/assets/favicon.ico">';
+	if(file_exists('mc-content/themes/'.$settings->site_theme.'/img/assets/favicon.ico'))
+	{
+       echo '<link rel="shortcut icon" type="image/x-icon" href="mc-content/themes/'.$settings->site_theme.'/img/assets/favicon.ico">';
+	}
+	if(file_exists('mc-content/themes/'.$settings->site_theme.'/img/favicon.ico'))
+	{
+		echo '<link rel="shortcut icon" type="image/x-icon" href="mc-content/themes/'.$settings->site_theme.'/img/favicon.ico">';
+	}
     echo '<meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/">';
     echo '<meta name="description" content="'.$settings->site_description.'">';
     echo '<meta name="keywords" content="'.$settings->site_keywords.'">';
@@ -27,16 +34,25 @@ function do_header()
 	echo '<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.php" />';
 }
 
-function do_router()
+function mc_login_url()
 {
-	include 'router.php';
-	$router = new router();
+	$login_url = '/login';
+	return $login_url;
 }
 
-function run_router()
+function mc_logout_url()
 {
-	$router->run();
+	$logout_url = '/logout';
+	return $logout_url;
 }
+
+function mc_register_url()
+{
+	$register_url = '/signup';
+	return $register_url;
+}
+
+
 
 function mc_debug($string)
 {
@@ -65,11 +81,10 @@ function mc_getUser($username)
 	}
 	else
 	{
-		session_start();
 		$_SESSION['timestamp'] = time();
 		$_SESSION['user_id'] = $user['id'];
 		$_SESSION['admin'] = $user['user_status'];
-		$_SESSION['disply_name'] = $user['display_name'];
+		$_SESSION['display_name'] = $user['display_name'];
 		$uid = $user['id'];
 		$query = "UPDATE mc_users SET last_login = NOW() WHERE id = '$uid'";
 		$result = mc_query($query);
@@ -96,15 +111,18 @@ function mc_getUser($username)
 function logged_time()
 {
    $idletime = 1800;
-   if (time()-$_SESSION['timestamp']>$idletime)
+   if(isset($_SESSION['timestamp']))
    {
-	   //$_SESSION = array();
-	   //setcookie(session_name(), false, time()-3600);
-	   session_destroy(); 
-   }
-   else
-   {
-	   $_SESSION['timestamp'] = time();
+	   if (time() - $_SESSION['timestamp'] > $idletime)
+	   {
+		   //$_SESSION = array();
+		   //setcookie(session_name(), false, time()-3600);
+		   session_destroy(); 
+	   }
+	   else
+	   {
+		   $_SESSION['timestamp'] = time();
+	   }
    }
 }
 
@@ -447,4 +465,27 @@ function get_themes()
 
 	}
 	closedir($handle);
+}
+
+function ago($time)
+{
+   $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+   $lengths = array("60","60","24","7","4.35","12","10");
+
+   $now = time();
+
+       $difference     = $now - $time;
+       $tense         = "ago";
+
+   for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+       $difference /= $lengths[$j];
+   }
+
+   $difference = round($difference);
+
+   if($difference != 1) {
+       $periods[$j].= "s";
+   }
+
+   return "$difference $periods[$j] $tense ";
 }
