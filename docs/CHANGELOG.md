@@ -13,7 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Beta Release] - [1.5.1] - 20200918 0230 UTC - Beta
  - Release 1.5.1 Beta for testing
 
-## [Unreleased] - [1.5.1] - 20200918 0130 UTC - Development
+## [Unreleased]
+
+## [1.5.1] - 20200918 0130 UTC - Development
  - fix front-end ajax, method and JS data
  - add admin->users methods (CRUD)
  - add admin->site theme management
