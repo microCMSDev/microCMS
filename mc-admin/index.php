@@ -3,9 +3,9 @@ ob_start();
 session_start();
 if(isset($_SESSION['admin']))
 {
-   $user_status = $_SESSION['admin'];
+   $admin_user = $_SESSION['admin'];
 }
-if($user_status != 1)
+if($admin_user != 1)
 {
   header("Location: /");
 }
@@ -58,18 +58,16 @@ else
 	   include 'pages/users.php';
 	});
 	$admin_switch = mc_adminSwitch();
-	/*
-	while($row = mc_fetchAssoc($admin_switch))
+	while($plugins = mc_fetchAssoc($admin_switch))
 	{
-		$plugin = $row['plugin_slug'];
-		if(file_exists('/mc-content/plugins/'.$plugin.'/admin/'.$plugin.'-admin.php')
-		{
-			$router->match('GET|POST', '/'.$plugin.'', function () {
-	           include '/mc-content/plugins/'.$plugin.'/admin/'.$plugin.'-admin.php';
-	        });
-		}
+	   $plugin = $plugins['plugin_slug'];
+	   if(file_exists('../mc-content/plugins/'.$plugin.'/admin/'.$plugin.'-admin.php'))
+	   {
+	      $router->match('GET|POST', '/'.$plugin.'', function() use($plugin){
+		    require '../mc-content/plugins/'.$plugin.'/admin/'.$plugin.'-admin.php';
+	      });
+	   }
 	}
-	*/
 	$router->run();
 	echo '</div>';
 	include 'includes/footer.php';

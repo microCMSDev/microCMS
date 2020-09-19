@@ -21,7 +21,7 @@ function users()
 {
 	// Breadcrumb
    //echo '<p><small><strong>Main</strong> >> <a href="/mc-admin/settings?page=mail">Mail Server</a> >> <a href="/mc-admin/settings?page=social">Social Media</a> >> <a href="/mc-admin/settings?page=maintenance">Maintenance</a></small></p>';
-   $query = "SELECT id, user_login, user_nickname, display_name, user_email, reg_date FROM mc_users";
+   $query = "SELECT id, user_login, user_nickname, display_name, user_email, user_status, reg_date FROM mc_users";
    $result = mc_query($query);
    echo '<div id="response" name="repsonse"></div>';
    echo '<table border="0" cellpadding="3" cellspacing="3" width="100%">';
@@ -36,7 +36,7 @@ function users()
    echo '</tr>';
    while($data = mc_fetchAssoc($result))
    {
-	   $user_id = $data['id'];
+   $user_id = $data['id'];
    $user_name = $data['user_login'];
    $user_nickname = $data['user_nickname'];
    $display_name = $data['display_name'];

@@ -27,20 +27,16 @@
         <a class="nav-link" href="/mc-admin/users"><i class="fa fa-users" aria-hidden="true"></i> Users</a>
       </li>
       <?php
-        $mcdb = new database\db;
 	// Menu
-	$query = "SELECT * FROM mc_plugins WHERE plugin_type = 1";
-	$result = $mcdb->query($query);
-        while($plugins = $mcdb->fetch_assoc($result))
+	$query = "SELECT * FROM mc_plugins WHERE plugin_type = 1 && plugin_status = 1";
+	$result = mc_query($query);
+        while($plugins = mc_fetchAssoc($result))
         {
            $plugin = $plugins['plugin_slug'];
            $plugin_name = $plugins['plugin_name'];
-           if(file_exists('mc-content/'.$plugin.'/admin/'.$plugin.'-admin.php'))
-           {
               echo '<li class="nav-item">';
-              echo '<a href="/mc-admin/'.$plugin.'">'.$plugin_name.'</a>';
+              echo '<a class="nav-link" href="/mc-admin/'.$plugin.'"><i class="fa fa-cog" aria-hidden="true"></i> '.$plugin_name.'</a>';
               echo '</li>';
-           }
         }
         ?>
     </ul>
