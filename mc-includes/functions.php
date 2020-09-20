@@ -241,6 +241,15 @@ function mc_countComments($id)
    $count = $data['total'];
    return $count;
 }
+function count_comments()
+{
+   $mcdb = new database\db;
+   $query = "SELECT count(*) as total from mc_metadata";
+   $result = $mcdb->query($query);
+   $data = $mcdb->fetch_assoc($result);
+   $count = $data['total'];
+   return $count;
+}
 
 function mc_getBlogbySlug($slug)
 {
@@ -488,4 +497,18 @@ function ago($time)
    }
 
    return "$difference $periods[$j] $tense ";
+}
+
+function check_coreUpdate()
+{
+   $url = "https://control.microcms.org/version_check.php?id=1";
+   $ch = curl_init();
+   curl_setopt($ch, CURLOPT_URL, $url);
+   curl_setopt($ch, CURLOPT_HEADER, FALSE);
+   curl_setopt($ch, CURLOPT_NOBODY, FALSE); // remove body
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+   $content  = curl_exec($ch);
+   $remote_version = trim($content);
+   curl_close($ch);
+   return $remote_version;
 }

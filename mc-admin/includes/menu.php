@@ -21,7 +21,18 @@
         <a class="nav-link" href="/mc-admin/themes"><i class="fa fa-camera" aria-hidden="true"></i> Themes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/mc-admin/updates"><i class="fa fa-refresh" aria-hidden="true"></i> Updates</a>
+      <?php
+      $this_version = mc_version();
+      $remote_version = check_coreUpdate();
+      if($this_version !== $remote_version)
+      {
+          echo '<a class="nav-link" href="/mc-admin/updates"><i class="fa fa-refresh" aria-hidden="true"></i> Updates</a> <button type="button" class="btn btn-danger">(1)</button>';
+       }
+       else
+       {
+          echo '<a class="nav-link" href="/mc-admin/updates"><i class="fa fa-refresh" aria-hidden="true"></i> Updates</a>';
+       }
+       ?>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/mc-admin/users"><i class="fa fa-users" aria-hidden="true"></i> Users</a>

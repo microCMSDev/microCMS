@@ -12,6 +12,19 @@
            <p class="card-text">
 		   <i class="fa fa-tag" aria-hidden="true"></i> <a href="/mc-admin/posts"><strong><?php echo mc_countPosts()?></strong></a> Post
            <br>
+           <?php
+           $comment_count = count_comments();
+           if($comment_count == 1)
+           {
+              $comment_tense = 'Comment';
+           }
+           else
+           {
+              $comment_tense = 'Comments';
+           }
+           ?>
+           <i class="fas fa-comment-dots"></i>  <strong><?php echo $comment_count?></strong> <?php echo $comment_tense;?>
+           <br>
            <!--Site Status (Pending)<br>-->
 		   <i class="fa fa-map-pin" aria-hidden="true"></i>  <strong><?php echo mc_countVisits()?></strong> Site Visits<br>
            <i class="fa fa-user" aria-hidden="true"></i> <a href="/mc-admin/users"><strong><?php echo mc_countUsers()?></strong></a> Users<br>
