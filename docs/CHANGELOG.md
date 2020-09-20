@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Post Beta] - [1.5.1] - 20200918 0400 UTC - Develpoment
+## [Post Beta] - [1.5.1] - 20200920 1900 UTC - Develpoment
+ - add comment count to Admin->Main
+ - add Last 3 Bad IPs to Admin->Main with country image
+ - add Update Notification to admin Dashboard Menu
+ - add check core update to mc-includes->functions
+ - update Dashboard->Update to use check_coreUpdate
+ - Add account user page and redirect on login
+
+## [Post Beta] - [1.5.1] - 20200919 1530 UTC - Develpoment
  - add commenting on post
  - add comment count per post in admin->posts
  - add if isset to logged_time() to correct error
